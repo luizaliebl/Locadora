@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+   dsi2019:
+     depends_on:
+       - dbluiza  
+     image: dsi2019:latest
+     ports:
+       - "8080:8080"
+     restart: always
+     environment:
+       - SPRING_PROFILES_ACTIVE=prod
+       - DSI2019_DB_HOST=jdbc:sqlserver://dbluiza:1433;databaseName=model  
+       - DSI2019_DB_USER=SA
+       - DSI2019_DB_PASS=<YourStrong@Passw0rd>
+   dbluiza:
+     image: mcr.microsoft.com/mssql/server:2017-latest
+     restart: always
+     ports:
+       - "1433:1433"
+     environment:
+       - ACCEPT_EULA=Y
+       - SA_PASSWORD=<YourStrong@Passw0rd>

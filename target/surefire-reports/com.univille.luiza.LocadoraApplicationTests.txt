@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.univille.luiza.LocadoraApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.975 s - in com.univille.luiza.LocadoraApplicationTests

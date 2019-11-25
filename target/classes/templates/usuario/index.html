@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<body>
+	<nav th:replace="layout :: menu">(menu)</nav>
+	<div class="container" style="margin-top: 80px;">
+		<div class="card">
+		  <div class="card-body">
+		    <h5 class="card-title">Usuários</h5>
+		    <div class="table-responsive">
+				<table class="table" id="usuarios">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Nome</th>
+							<th scope="col">Data de Nascimento</th>
+							<th scope="col">Email</th>
+							<th scope="col" class="d-flex justify-content-end"><a href="form.html" th:href="@{/usuario/novo}" class="btn btn-light mr-4 text-right" role="button"><i class="fas fa-plus"></i></a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr scope="row" th:each="umusuario : ${usuarios}">
+							<td th:text="${umusuario.nome}"></td>
+							<td
+								th:text="${#dates.format(umusuario.dataNascimento, 'dd/MM/yyyy')}"></td>
+							<td th:text="${umusuario.email}"></td>
+							<td class="d-flex justify-content-end"><a th:href="@{'/usuario/edit/' + ${umusuario.id}}"
+								class="btn btn-secondary mr-2"><i class="fas fa-pencil-alt"></i></a>
+								
+								
+								<button class="btn btn-danger js-delete"
+									th:data-customer-id="${umusuario.id}"><i class="fas fa-trash"></i></button></td>
+						</tr>
+					</tbody>
+				</table>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+	<script type="text/javascript">
+			$(document).ready(function(){
+				$("#usuarios").on("click", ".js-delete", function(){
+					var button = $(this);
+					
+					bootbox.confirm("Voce tem certeza que deseja excluir este usuario?", function(result){
+						if (result){
+							$.ajax({
+								url:"/usuario/delete/" + button.attr("data-customer-id"),
+								method: "GET",
+								success: function(){
+									window.location.href="/usuario/"
+								}
+							});
+						}
+					});
+				});
+			});
+		
+		</script>
+</body>
+</html>

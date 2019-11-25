@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead"></head>
+	<body>
+		<div class="container">
+			<nav th:replace="layout :: menu">(menu)</nav>
+				<div class="container" style="margin-top: 80px;">
+					<div class="card">
+					  <div class="card-body">
+					    <h5 class="card-title">Aluguéis</h5>
+					    <div class="table-responsive">
+				 			
+								<form th:action="@{/aluguel/(form)}" th:object="${aluguel}" action="#" method="post">
+									<input type="hidden" id="txtid" th:field="*{id}" />
+									
+								    <div class="form-group">
+								        <label for="txtcli">Cliente</label>
+								        <select class="form-control" id="clientes" th:field="*{cliente}">
+				                            <option th:each="umcliente : ${listaclientes}" th:value="${umcliente.id}" th:text="${umcliente.nome}" ></option>
+				                        </select>
+								    </div>
+
+								    <div class="form-group">
+								        <label for="txtcar">Veículo</label>
+								        <select class="form-control" id="carro" th:field="*{carro}">
+				                            <option th:each="umveiculo : ${listaveiculos}" th:value="${umveiculo.id}" th:text="${umveiculo.modelo}"></option>
+				                   		</select>
+				                   	</div>
+								        
+								    <div class="form-group">
+								        <label for="txtnome">Data de Início</label>
+								        <input type="date" th:field="*{dataRetirada}" class="form-control" 
+								        id="dtRet" placeholder="dataRetirada">
+								    </div>
+								    
+								    <div class="form-group">
+								        <label for="txtnome">Data de Fim</label>
+								        <input type="date" th:field="*{dataDevolucao}" class="form-control" 
+								        id="dtDev" placeholder="dataDevolucao">
+								    </div>
+								    
+								    <div class="form-group">
+								        <label for="txtDias">Total Dias</label>
+								        <input type="number" th:field="*{totalDias}" class="form-control" 
+								        id="numDias" placeholder="TotalDias" disabled>
+								    </div>
+								    								  					
+								    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
+								</form>
+							
+						</div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		<div th:include="layout :: footer" id="footer">(footer)</div>
+		
+		<script type="text/javascript">
+				$(document).ready(function(){
+					$('#dtDev').on('blur', function () {
+						var dataD = $(this).val().split('-');
+						var dataR = $('#dtRet').val().split('-');
+						var moD = moment($(this).val(), "YYYY-MM-DD");
+						var moR = moment($('#dtRet').val(), "YYYY-MM-DD");
+						console.log(moD.diff(moR, 'days'));
+						$("#numDias").val(moD.diff(moR, 'days'));
+						
+					});
+				});
+			
+			</script>
+	</body>
+</html>

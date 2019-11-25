@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<body>
+	<nav th:replace="layout :: menu">(menu)</nav>
+	<div class="container" style="margin-top: 80px;">
+		<div class="card">
+		  <div class="card-body">
+		    <h5 class="card-title">Para liberação</h5>
+		    <div class="table-responsive">
+				<table class="table" id="aluguel">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Cliente</th>
+							<th scope="col">Veículo</th>
+							<th scope="col">Placa</th>
+							<th scope="col">Data Início</th>
+							<th scope="col">Data Fim</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr scope="row" th:each="umaluguel : ${alugueis}">
+							<td th:text="${umaluguel.cliente.nome}"></td>
+							<td th:text="${umaluguel.carro.marca} + ${umaluguel.carro.modelo}"></td>
+							<td th:text="${umaluguel.carro.placa}"></td>
+							<td	th:text="${#dates.format(umaluguel.dataRetirada, 'dd/MM/yyyy')}"></td>
+							<td	th:text="${#dates.format(umaluguel.dataDevolucao, 'dd/MM/yyyy')}"></td>
+							
+							<td class="d-flex justify-content-end"><a th:href="@{'/liberacao/liberar/' + ${umaluguel.id}}"
+								class="btn btn-secondary mr-2"><i class="fas fa-paper-plane"></i></a>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+	
+</body>
+</html>
