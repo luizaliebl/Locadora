@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead"></head>
+	<body>
+		<div class="container">
+			<nav th:replace="layout :: menu">(menu)</nav>
+				<div class="container" style="margin-top: 80px;">
+					<div class="card">
+					  <div class="card-body">
+					    <h5 class="card-title">Usuários</h5>
+					    <div class="table-responsive">
+				 			
+								<form th:action="@{/usuario/(form)}" th:object="${usuario}" action="#" method="post">
+									<input type="hidden" id="txtid" th:field="*{id}" />
+									
+								    <div class="form-group">
+								        <label for="txtnome">Nome</label>
+								        <input type="text" th:field="*{nome}" class="form-control" 
+								        id="txtnome" placeholder="Nome">
+								    </div>
+								    
+								    <div class="form-group">
+								        <label for="txtnome">Data de Nascimento</label>
+								        <input type="date" th:field="*{dataNascimento}" class="form-control" 
+								        id="dtnasc" placeholder="DataNascimento">
+								    </div>
+								    							    
+								    <div class="form-group">
+								        <label for="txtnome">Email</label>
+								        <input type="text" th:field="*{email}" class="form-control" 
+								        id="txtemail" placeholder="Email">
+								    </div>
+								    
+								    <div class="form-group">
+									    <label for="tipo">Tipo</label>
+									    <select class="form-control" id="role" th:field="*{role}">
+									      <option th:value="ROLE_ADMIN" >Administrador</option>
+									      <option th:value="ROLE_USER" >Funcionário</option>
+									    </select>
+									</div> 
+								  								
+									<div class="form-group">
+								        <label for="txtusuario">Usuário</label>
+								        <input type="text" th:field="*{login}" class="form-control" 
+								        id="txtusuario" placeholder="Usuario">
+								    </div>
+								    
+								    <div class="form-group">
+								        <label for="txtsenha">Senha</label>
+								        <input type="password" th:field="*{senha}" class="form-control" 
+								        id="txtsenha" placeholder="Senha">
+								    </div>
+								    
+						
+								    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
+								</form>
+							
+						</div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		<div th:include="layout :: footer" id="footer">(footer)</div>
+	</body>
+</html>
